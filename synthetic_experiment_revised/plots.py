@@ -99,7 +99,7 @@ def fig_jobs(data, n):
         ax.scatter(u + 0.012 + rng.uniform(-0.012, 0.012, len(s2)), s2, marker="^", s=32,
                    facecolors="none", edgecolors="green", alpha=0.6, linewidths=1.2,
                    label=LBL_S2 if u == UTILS[0] else None)
-    ax.set_ylabel("Maximum Job\nCount", fontsize=fs)
+    ax.set_ylabel("Number of\nProtected Jobs", fontsize=fs)
     ax.set_xticks(UTILS); ax.set_xlim(0.05, 0.85); ax.set_ylim(0, 18)
     ax.yaxis.set_major_locator(MultipleLocator(5))
     style_axes(ax, fs)
