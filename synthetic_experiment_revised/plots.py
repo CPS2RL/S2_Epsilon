@@ -60,7 +60,12 @@ def fig_acceptance(data, n):
     ax.set_xticks(UTILS); ax.set_xlim(0.07, 0.83); ax.set_ylim(-3, 103)
     ax.yaxis.set_major_locator(MultipleLocator(20))
     style_axes(ax, fs)
-    legend_top(ax, fs, 3, loc="lower right", x=1.0)   # right edge aligned with the plot
+    # center the legend over the whole figure (y-label included), not just the plot area
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    tight = fig.get_tightbbox(renderer)                      # in inches
+    tight_ax = fig.dpi_scale_trans.transform_bbox(tight).transformed(ax.transAxes.inverted())
+    legend_top(ax, fs, 3, x=0.5 * (tight_ax.x0 + tight_ax.x1))
     fig.savefig(os.path.join(OUT, f"acceptance_n{n}.pdf"), bbox_inches="tight")
     plt.close(fig)
 
