@@ -9,6 +9,11 @@ scheduler, the S²ε-Scheduler, and the ε-Scheduler on synthetic tasksets.
   200 tasksets per point; UUniFast utilizations, periods in [50, 200] ms,
   implicit deadlines, one randomly selected control task per taskset). Each task
   carries the ε-Scheduler inter-arrival bounds [T⊥, T⊤] used for comparison.
+- `data/original_evaluation/`: the unmodified outputs of the original evaluation
+  (`task_parameters.csv`, `per_taskset_scheduler_results.csv`), from which
+  `data/tasksets.csv` was extracted (task parameters and ε-Scheduler bounds only;
+  the original S²ε results, computed with the earlier GP and stability check, are
+  kept for reference).
 - Rate-monotonic priorities.
 - Control stability: L + αJ ≤ β with α = 1.2 and β = 20.83 ms (DC motor of
   Sec. III-B), using R^b = C. This gives the response-time limit
