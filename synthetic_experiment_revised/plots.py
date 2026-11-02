@@ -44,8 +44,8 @@ def style_axes(ax, fs):
     ax.set_xlabel("Utilization", fontsize=fs)
 
 
-def legend_top(ax, fs, ncol, **kw):
-    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=ncol, frameon=False,
+def legend_top(ax, fs, ncol, loc="lower center", x=0.5, **kw):
+    ax.legend(loc=loc, bbox_to_anchor=(x, 1.0), ncol=ncol, frameon=False,
               fontsize=fs, handlelength=1.4, columnspacing=0.8, handletextpad=0.3, **kw)
 
 
@@ -60,7 +60,7 @@ def fig_acceptance(data, n):
     ax.set_xticks(UTILS); ax.set_xlim(0.07, 0.83); ax.set_ylim(-3, 103)
     ax.yaxis.set_major_locator(MultipleLocator(20))
     style_axes(ax, fs)
-    legend_top(ax, fs, 3)
+    legend_top(ax, fs, 3, loc="lower right", x=1.0)   # right edge aligned with the plot
     fig.savefig(os.path.join(OUT, f"acceptance_n{n}.pdf"), bbox_inches="tight")
     plt.close(fig)
 
