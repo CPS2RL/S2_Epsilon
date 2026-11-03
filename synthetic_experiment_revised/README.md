@@ -54,3 +54,7 @@ python plots.py                # -> figures/*.pdf, results/summary.csv
 | `figures/acceptance_n*.pdf` | acceptance ratio vs. utilization |
 | `figures/epsilon_proposed_vs_sarts_accepted_n*.pdf` | inter-arrival noise vs. utilization (S²ε: accepted tasksets; ε-Scheduler: all tasksets) |
 | `figures/protection_duration_*.pdf` | number of protected jobs vs. utilization |
+
+## Note
+
+Opus 5.5 was used for some of the implementations. However, all the code and results were fully reviewed and approved by the authors.
