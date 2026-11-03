@@ -1,0 +1,19 @@
+{
+  "utilizations": [
+    0.6,
+    0.7,
+    0.8
+  ],
+  "rho_tolerance": 0.001,
+  "nonzero_normalized_threshold": 1e-06,
+  "all_final_points_reference_checked": true,
+  "source_sha256": {
+    "data/tasksets.csv": "547723d97d092761db7aa96e4caad0d481bf3bab3b13eec3d7901f474f2073d3",
+    "results/per_taskset.csv": "914265fd6170eab690ce89ef67962c8a7ea76de6daf7cd6317a6ab29a09df7fd"
+  },
+  "numpy_version": "2.0.2",
+  "scipy_version": "1.13.1",
+  "python_version": "3.9.6",
+  "script_sha256": "56aeeebd7279e1f0f9815a27d125dc4c53c5ba0c9be32133b198ab6e165a59e8",
+  "method": "Bisection along delta_i=rho*delta_max_i; original multi-job RTA and assumed stability condition; offline comparison only"
+}

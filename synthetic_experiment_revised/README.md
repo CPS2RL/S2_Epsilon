@@ -58,3 +58,48 @@ python plots.py                # -> figures/*.pdf, results/summary.csv
 ## Note
 
 Opus 5.5 was used for some of the implementations. However, all the code and results were fully reviewed and approved by the authors.
+
+## Conservatism check (additional experiment)
+
+`check_conservatism.py` uses the stored Fig. 4-6 tasksets and solver results;
+it does not regenerate workloads or change the GP/fallback results in those
+figures. It selects deterministically feasible tasksets with an infeasible GP
+at U in {0.6, 0.7, 0.8}. For every selected taskset, violation of the relaxed
+constraints at delta = 0 independently establishes GP infeasibility, since
+these constraints only increase as delta increases.
+
+The script searches delta_i = rho * delta_max_i, 0 <= rho <= 1, by bisection
+until the rho bracket is at most 0.001 wide. It retains the checked feasible
+endpoint, requiring all deadlines and the control task's response-time limit
+X = C + (beta - C)/alpha. The stability claim remains conditional on the
+paper's assumed stability condition for the sampling intervals considered.
+This search gives a feasible allocation, not a globally optimal allocation.
+A taskset has non-zero noise when some delta_i/T_i > 1e-6, matching the
+existing experiment's threshold.
+
+The job-completion recurrence is the same as in `s2eps.py`. To avoid building
+long busy windows for failing candidates, the search checks each successive
+job and stops on a response-time violation, or when the busy window ends
+before the next own release. `--verify-reference` additionally checks every
+final allocation with the unmodified `s2eps.certify` implementation and
+compares response-time values. The self-tests include a case in which a
+later job has a larger response time than the first, plus randomized
+cross-checks against the original implementation.
+
+```
+python check_conservatism.py --self-test --verify-reference
+```
+
+Results are in `results/conservatism/`:
+
+- `per_taskset.csv`: feasible rho, search bracket, normalized noise, relaxed
+  constraint violation at zero noise, and response-time margins.
+- `summary.csv`: fallback counts, recovered non-zero counts and percentages,
+  and mean/median normalized noise per (n, U).
+- `metadata.json`: input hashes, script hash, package versions, precision,
+  threshold, and whether all final points were reference-checked.
+
+All 694 selected fallback tasksets admit non-zero noise. Mean normalized
+noise across taskset sizes is 28.5-32.7% at U=0.6, 16.6-23.6% at U=0.7,
+and 4.9-11.0% at U=0.8. These are offline comparison results, not a change
+to the proposed scheduler or Figs. 4-6.
