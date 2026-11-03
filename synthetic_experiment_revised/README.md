@@ -6,7 +6,7 @@ scheduler, the S²ε-Scheduler, and the ε-Scheduler on synthetic tasksets.
 ## Setup
 
 - `data/tasksets.csv`: 8,000 tasksets (n ∈ {5, 10, 15, 20}, U ∈ {0.1, ..., 1.0},
-  200 tasksets per point; UUniFast utilizations, periods in [50, 200] ms,
+  200 tasksets per point; UUniFast utilizations, periods in [50, 150] ms,
   implicit deadlines, one randomly selected control task per taskset). Each task
   carries the ε-Scheduler inter-arrival bounds [T⊥, T⊤] used for comparison.
 - `data/original_evaluation/`: the unmodified outputs of the original evaluation
