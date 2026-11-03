@@ -103,3 +103,37 @@ All 694 selected fallback tasksets admit non-zero noise. Mean normalized
 noise across taskset sizes is 28.5-32.7% at U=0.6, 16.6-23.6% at U=0.7,
 and 4.9-11.0% at U=0.8. These are offline comparison results, not a change
 to the proposed scheduler or Figs. 4-6.
+
+## Pessimism of the GP relaxation (additional experiment)
+
+`pessimism.py` compares the noise bounds returned by the GP with noise bounds
+found by searches that use the exact multi-job RTA, on the same stored
+tasksets. It uses every taskset with U <= 0.8 that is feasible under the
+deterministic scheduler. Every solution is checked again with the reference
+implementation in `s2eps.certify`.
+
+Methods (columns in `results/pessimism/per_taskset.csv`):
+
+- `gp`: the geometric program; delta = 0 when it is infeasible.
+- `grid` (n = 5 only): exhaustive search over K = 6 equally spaced values of
+  delta_i in [0, delta_max_i] per task, keeping the best weighted objective,
+  followed by a per-task bisection that raises each delta_i while the exact
+  check still passes. A partial assignment that is already infeasible is
+  pruned, since shorter inter-arrival times never decrease response times.
+- `gp_refine`, `greedy`, `uniform`: additional heuristic searches (the
+  bisection pass started from the GP solution or from zero, and a single
+  scale factor delta_i = rho * delta_max_i). They are recorded for
+  completeness and are not plotted.
+
+All searches also require a total utilization of at most 1 - 1e-4; without
+this margin a search can stop within 1e-8 of full utilization, where the busy
+window becomes impractically long.
+
+```
+python pessimism.py          # results/pessimism/{per_taskset,summary}.csv
+python pessimism_plots.py    # figures/pessimism_noise_n5.pdf
+```
+
+At n = 5, the GP and the exhaustive search retain the same noise at U = 0.1
+(46.3%). At U = 0.5 they retain 21.1% and 44.8%, and at U = 0.7 and 0.8 the
+GP is infeasible while the exhaustive search retains 31.0% and 22.6%.
