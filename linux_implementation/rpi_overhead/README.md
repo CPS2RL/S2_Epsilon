@@ -220,8 +220,7 @@ The expanded benchmark fixes the following design:
 | Tasks per set | 10 |
 | Nominal utilization | 0.5 |
 | Trials per task set and scheduler | **5** |
-| Schedulers | DPS and SARTS only |
-| Duration | 60 s per run |
+| Schedulers | S2-Epsilon and Epsilon |
 | Hardware CPU | CPU 1 |
 | Timing and tracing governor | `performance` |
 | Power governors | `performance` and `ondemand` |
